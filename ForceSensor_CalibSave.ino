@@ -23,13 +23,12 @@ const uint8_t SLAVE_ADDR = 0x08;
 
 typedef union {
   struct __attribute__((packed)) {
-    int32_t weight_g100;     
-    int16_t angle_deg100;     
+    int32_t weight_g100;        
     int16_t accX_g1000;      
     int16_t accY_g1000;       
     int16_t accZ_g1000;     
   } val;
-  uint8_t buffer[12];
+  uint8_t buffer[10];
 } Packet_t;
 
 
@@ -51,8 +50,8 @@ const unsigned long DEBOUNCE_DELAY = 150;
 /* <declare-modules> */
 // [ 데이터 패킷 읽기 ]
 bool readPacket(Packet_t &p) {
-  if (Wire.requestFrom(SLAVE_ADDR, (uint8_t)12) == 12) {
-    for (int i = 0; i < 12; i++) {
+  if (Wire.requestFrom(SLAVE_ADDR, (uint8_t)10) == 10) {
+    for (int i = 0; i < 10; i++) {
       p.buffer[i] = Wire.read();
     }
     return true;
